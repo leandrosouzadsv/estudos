@@ -1,0 +1,47 @@
+docker container comandos
+
+pesquisa: ls (ativas) e ls -a (todas)
+
+create --name minhamaquina image:tag          
+-> criar um container sem iniciá-lo
+
+stop minhamaquina                             
+-> para com código de erro 0
+
+kill minhamaquina                             
+-> para com código de erro 137
+
+start minhamaquina                            
+-> iniciar o container
+
+pause minhamaquina                            
+-> parar o conteiner
+
+unpause minhamaquina
+-> continuar o container
+
+rm minhamaquina
+-> remover o container
+
+restart minhamaquina
+-> reiniciar para atualização ou avaliação
+
+rename ultimo_nome minhamaquina
+-> renomear o container
+
+wait minhamaquina
+-> cursor aguardando finalização ou continuação do container
+
+run --name minhamaquina -p 8080:80 image:tag
+-> Dokerfile : EXPOSE : 80;
+
+run -d minhamaquina
+-> iniciando em segundo plano, sem travar o cursor
+
+run -t minhamaquina
+-> iniciando em um terminal aberto 
+
+run -dt --name minhamaquina --entrypoint /bin/sh -P image:tag
+-> Direcionar todas as portas para portas randow, mostrará nos 
+   logs quando o container for iniciado. ex.: mysql.
+
