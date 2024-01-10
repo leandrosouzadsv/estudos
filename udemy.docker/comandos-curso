@@ -1,0 +1,477 @@
+# Ocultando Comandos da CLI Antiga do Help
+
+export DOCKER_HIDE_LEGACY_COMMANDS=true
+docker --Help
+unset DOCKER_HIDE_LEGACY_COMMANDS
+
+# docker system info
+
+docker system info
+
+
+# docker image pull
+
+docker image pull nginx:1.22.0
+docker image pull nginx:1.23.1
+docker image pull nginx:latest
+docker image pull busybox
+
+# docker image ls
+
+docker image ls
+docker image pull alpine:3.16.2
+
+# docker image inspect
+
+docker image inspect alpine:3.16.2
+docker image inspect nginx:latest
+docker image inspect nginx
+
+# docker image save
+
+docker image save alpine:3.16.2 -o alpine.tar
+docker image save nginx -o nginx.tar
+
+# docker image rm
+
+docker image rm alpine:3.16.2
+docker image rm nginx:latest
+docker image rm <id-da-imagem>
+
+# docker image load
+
+docker image load -i alpine.tar
+docker image rm nginx:1.22.0
+docker image load -i nginx.tar
+
+# docker container ls
+
+docker container ls
+docker container run -d nginx:1.23.1
+docker container stop <id-do-container>
+docker container ls -a
+docker container rm <id-do-container>
+
+# docker container run - Rodando Primeiro Container
+
+docker container run nginx:1.23.1
+docker container run nginx:1.23.1 ls
+docker container run --entrypoint /bin/bash nginx:1.23.1
+
+# docker container run - Rodando em Segundo Plano e de Forma Interativa
+
+docker container run -d nginx:1.23.1
+docker container run -i --entrypoint /bin/sh nginx:1.23.1
+docker container run -it --entrypoint /bin/sh nginx:1.23.1
+
+# docker container run - Removendo Container Automaticamente e Nomeando Container
+
+docker container run --rm nginx:1.23.1
+docker container run -d --name nginx nginx:1.23.1
+
+# docker container create/start/stop/kill/pause/unpause/rm
+
+docker container create --name nginx-2 nginx:1.23.1
+docker container start nginx-2
+docker container stop nginx-2
+docker container start nginx-2
+docker container kill nginx-2
+docker container start nginx-2
+docker container pause nginx-2
+docker container unpause nginx-2
+docker container rm <nome-do-container>
+docker container rm <id-do-container>
+docker container rm nginx-2 --force
+
+# docker container restart/rename/wait
+
+docker container run --name nginx-restart nginx:1.23.1
+docker container restart nginx-restart
+docker container rename <nome-original-do-container> nginx-renamed
+docker container run --name nginx-wait nginx:1.23.1
+docker container wait nginx-wait
+
+# docker container run - Associando Porta do Host à uma Porta do Container
+
+docker container run --name nginx-port -p 8080:80 nginx:1.23.1
+docker container start nginx-port
+docker container stop nginx-port
+docker container run -dt --name mysql --entrypoint /bin/sh -P mysql:8.0.30
+
+# docker container inspect/port/diff/logs
+
+docker container inspect nginx-renamed
+docker container port mysql
+docker container run -it --name alpine-diff alpine:3.16.2
+docker container diff alpine-diff
+docker container run -d --name nginx-logs -p 8000:80 nginx:1.23.1
+docker container logs nginx-logs
+docker container logs nginx-logs -f
+
+# docker container exec/cp
+
+docker container exec -it nginx-logs bash
+docker container exec nginx-logs ls
+docker container exec nginx-logs touch file-test
+echo "Arquivo criado no container" > container-file
+docker container cp nginx-logs:/container-file .
+mkdir cp-example
+docker container cp nginx-logs:/container-file <path-completo-para-destino-do-arquivo>
+echo "Arquivo criado no host" > host-file
+docker container cp <path-completo-do-arquivo-de-origem> nginx:logs/host-file
+
+# docker container run - Variáveis de ambiente, Hostname e Read Only
+
+docker container run -it --name alpine-environment -e VAR1=abc123 -e VAR2=def456 alpine:3.16.2
+docker container inspect alpine-environment
+docker container run -it --name alpine-read-only --read-only alpine:3.16.2
+docker container run -it --name ubuntu ubuntu:18.04
+docker container run -it --name ubuntu-hostname --hostname curso-docker ubuntu:18.04
+
+# docker container run - Health Check
+
+docker container run -d --name nginx-healthcheck --rm --health-cmd "cat /usr/share/nginx/html/index.html" nginx:1.23.1
+docker container stop nginx-healthcheck
+docker container run -d --name nginx-healthcheck --rm --health-cmd "cat /usr/share/nginx/html/home.html" nginx:1.23.1
+docker container run -d --name nginx-healthcheck --rm --health-cmd "cat /usr/share/nginx/html/home.html" --health-interval 500ms --health-retries 3 --health-start-period 5s nginx:1.23.1
+docker container inspect nginx-healthcheck
+
+# docker container commit
+
+docker container run -dt --name alpine-commit alpine:3.16.2
+docker container exec -it alpine-commit sh
+echo "Arquivo criado no container" > container-file
+docker container commit alpine-commit alpine:custom
+docker container commit -p alpine-commit alpine:custom
+docker container run -it --name alpine-custom-commit alpine:custom
+
+# docker container export
+
+docker container run -dt --name alpine-export alpine:3.16.2
+docker container exec -it alpine-export sh
+apk add curl
+echo "Arquivo criado no container" > container-file
+docker container export alpine-export -o alpine-export.tar
+
+# docker image import
+
+docker image import alpine-export.tar alpine:export
+docker container run -it --name alpine-import --entrypoint /bin/sh alpine:export
+docker container run -it --name alpine-test-curl alpine:3.16.2
+
+# docker container run - Limitando Recursos
+
+docker container run -dt --name ubuntu-resource --cpus 0.1 -m 100m ubuntu:18.04
+docker system info
+docker container run -dt --name ubuntu-oom-killed --cpus 0.1 -m 10m ubuntu:18.04 /bin/sh -c "dd if=/dev/zero of=/dev/null bs=100M"
+docker container inspect ubuntu-oom-killed
+
+# docker container stats/top/update
+
+docker container stats
+docker container exec -it ubuntu-resource bash
+apt-get update && apt-get install -y stress bash
+stress -c 4 -t 20
+dd if=/dev/zero of=/dev/null bs=1G
+dd if=/dev/zero of=/dev/null bs=50M
+docker container top ubuntu-resource
+docker container top nginx-healthcheck
+docker container run -dt --name ubuntu-no-limits ubuntu:18.04
+docker container exec -it ubuntu-no-limits bash
+docker container update --cpus 0.8 -m 120M --memory-swap 150M ubuntu-no-limits
+
+# docker container run - Pull Policy, Restart Policy e Privileged
+
+docker container run -dt --name alpine-pull-policy --rm alpine:3.16.2
+docker container stop alpine-pull-policy
+docker container run -dt --name alpine-pull-policy --rm --pull always alpine:3.16.2
+docker container run -dt --name alpine-pull-policy --rm --pull never alpine:3.14
+docker container run -dt --name terraform-restart --restart on-failure:5 hashicorp/terraform sdkjasdklf
+docker container inspect terraform-restart
+docker container run -dt --name alpine-restart --restart unless-stopped alpine:3.16.2 sleep 10
+docker container stop alpine-restart
+docker container run -dt --name alpine-restart --restart always alpine:3.16.2
+docker container run -it --name alpine-no-privileged alpine:3.16.2
+mount -t tmpfs none /mnt
+docker container run -it --name alpine-privileged --privileged alpine:3.16.2
+
+# docker system df/events
+
+docker system df
+docker system df -v
+docker system events
+docker container run -dt --name alpine-events alpine:3.16.2
+docker image pull alpine
+docker container stop alpine-events
+docker container rm alpine-events
+
+# Visualizando Camadas de Imagens e Containers no Host
+
+docker image pull nginx:1.23.1
+cd /var/lib/docker
+cd overlay2
+docker container run -dt --name nginx nginx:1.23.1
+docker container inspect nginx
+docker container diff nginx
+docker container exec -it nginx bash
+mkdir exemplo
+echo "Arquivo criado no container" > container-file
+echo "Linha criada no host" >> container-file
+
+# docker image build
+
+docker image build .
+docker image inspect <id-da-imagem>
+docker image build -t alpine:curso-docker-1.0 .
+docker image build -t alpine:curso-docker-2.0 --build-arg TAG=3.13 --build-arg CONTAINER_NAME_ARG="Container B" .
+docker image inspect alpine:curso-docker-2.0
+docker image build -t alpine:curso-docker-3.0 -f from-arg-env-label/Dockerfile-custom --build-arg CONTAINER_NAME_ARG="Container C" from-arg-env-label/
+docker image inspect alpine:curso-docker-3.0
+
+# Dockerfile - COPY, ADD, WORKDIR e RUN
+
+touch add-files/file{1..30}
+tar -czvf copy-add-workdir-run/add-files.tar.gz add-files/
+docker image build -t ubuntu:curso-docker-1.0 .
+docker container run -it --name ubuntu-dockerfile ubuntu:curso-docker-1.0
+docker image build -t ubuntu:curso-docker-2.0 .
+
+# Dockerfile - ENTRYPOINT e CMD
+
+docker image build -t ansible:alpine-1.0 .
+docker container run --rm --name ansible ansible:alpine-1.0
+docker container run --rm --name ansible -e ANSIBLE_HOST_KEY_CHECKING=false ansible:alpine-1.0 all -i <ip-da-maquina>, -m ping --extra-vars "ansible_user=<user-da-maquina> ansible_password=<password>"
+docker image build -t ansible:alpine-2.0 .
+docker container run --rm --name ansible ansible:alpine-2.0
+
+# Dockerfile - EXPOSE, VOLUME e USER
+
+docker container run -dt --rm --name nginx-original nginx:1.23.3-alpine
+docker container cp nginx-original:/etc/nginx/conf.d/default.conf default.conf
+docker container cp nginx-original:/etc/nginx/nginx.conf nginx.conf
+docker container stop nginx-original
+docker image build -t nginx:custom .
+docker container run -it --rm --name nginx-custom -p 8000:8010 nginx:custom
+docker container inspect nginx-custom
+docker volume ls
+docker container exec -it nginx-custom sh
+ps
+docker container run -dt --rm --name nginx-original nginx:1.23.3-alpine
+docker container exec -it nginx-original sh
+
+# Dockerfile - SHELL
+
+docker container run -dt --rm --name ubuntu ubuntu
+docker container exec -it ubuntu sh
+docker container exec -it ubuntu bash
+mkdir sh
+mkdir bash
+touch file-{0..10}
+docker image build -t ubuntu:shell-1 .
+docker container run -it --rm --name ubuntu-shell-1 ubuntu:shell-1
+docker image build -t ubuntu:shell-2 .
+docker container run -it --rm --name ubuntu-shell-2 ubuntu:shell-2
+
+# Dockerfile - STOPSIGNAL e HEALTHCHECK
+
+docker container run -dt --rm --name alpine alpine
+docker container inspect alpine
+docker container inspect nginx-original
+docker image build -t nginx:stop-health .
+docker container run -dt --rm --name nginx-stop-health nginx:stop-health
+docker container inspect nginx-stop-health
+
+# Dockerfile - ONBUILD
+
+docker image build -t nginx:onbuild .
+docker image build -t nginx:use-onbuild-1 .
+docker container run -dt --rm --name nginx-use-onbuild-1 -p 8080:80 nginx:use-onbuild-1
+docker image build -t nginx:use-onbuild-2 .
+docker container stop nginx-use-onbuild-1
+docker container run -dt --rm --name nginx-use-onbuild-2 -p 8080:80 nginx:use-onbuild-1
+
+# docker login
+
+docker login -u <username> -p <token>
+docker logout
+docker login -u <username>
+docker login <server> -u <username>
+aws ecr get-login-password --region <region> | docker login <server> -u AWS --password-stdin
+docker logout <server>
+
+# docker image tag/push
+
+docker image build -t alpine:curl-1.0 .
+docker image tag alpine:curl-1.0 <registry>/alpine:curl-1.0
+docker image push <registry>/alpine:curl-1.0
+
+# docker image history
+
+docker image history nginx:1.23.3-alpine
+
+# docker container attach
+
+docker image build -t python:attach .
+docker container run -it --rm --name python python:attach
+docker container run -d -it --rm --name python python:attach
+docker container attach --detach-keys=ctrl-a,ctrl-b python
+
+# Cache no Build
+
+docker image build -t ubuntu:cache .
+docker image build -t ubuntu:cache-2 .
+docker image build -t ubuntu:cache-3 --no-cache .
+docker image build -t ubuntu:cache-4 .
+docker image build -t ubuntu:cache-5 .
+docker image tag ubuntu:cache <registry>/ubuntu:cache
+docker image push <registry>/ubuntu:cache
+docker image rm ubuntu:cache
+docker image rm ubuntu:cache-2
+docker image rm ubuntu:cache-3
+docker image rm ubuntu:cache-4
+docker image rm ubuntu:cache-5
+docker image rm <registry>/ubuntu:cache
+docker image build -t ubuntu:cache --cache-from <registry>/ubuntu:cache
+
+# Build com Múltiplos Estágios
+
+docker image build -t java:sem-multi-stage .
+docker container run -it --rm --name java java:sem-multi-stage
+docker image build -t java:com-multi-stage .
+docker container run -it --rm --name java java:com-multi-stage
+
+# Arquivo .dockerignore
+
+docker image build -t alpine:dockerignore .
+docker container run --rm --name alpine:dockerignore ls -lh
+docker container run --rm --name alpine:dockerignore ls -lh dir
+docker image build -t alpine:dockerignore-2 .
+docker container run --rm --name alpine:dockerignore-2 ls -lh
+docker container run --rm --name alpine:dockerignore-2 ls -lh dir
+docker image build -t alpine:dockerignore-3 .
+docker container run --rm --name alpine:dockerignore-3 ls -lh
+docker container run --rm --name alpine:dockerignore-2 ls -lh dir
+
+# docker volume create/ls
+
+docker volume ls
+docker volume create meu-volume
+docker volume create --name meu-volume-2
+
+# docker container run - Associando um Volume ao Container
+
+docker container run -it --rm --name alpine -v meu-volume:/mnt/meu-volume alpine:3.17
+echo "Este é um arquivo dentro do volume" > file.txt
+docker container run -it --rm --name alpine-2 -v meu-volume:/mnt/meu-volume alpine:3.17
+docker container run -it --rm --name nginx --entrypoint /bin/sh -v meu-volume-2:/usr/share/nginx/html nginx:1.23.3-alpine
+cd /usr/share/nginx/html
+echo "index.html foi alterado" > index.html
+docker container run -it --rm --name nginx-2 --entrypoint /bin/sh -v meu-volume-2:/usr/share/nginx/html nginx:1.23.3-alpine
+
+# docker volume inspect/rm
+
+docker volume inspect meu-volume
+docker volume rm <id-volume>
+docker volume rm meu-volume-2
+
+# Encontrando um Volume em um Host Linux
+
+docker volume create meu-volume
+docker volume inspect meu-volume
+cd /var/lib/docker/volumes/meu-volume/_data
+docker container run -it --rm --name alpine -v meu-volume/mnt/meu-volume alpine:3.17
+cd /mnt/meu-volume
+echo "Arquivo salvo no volume" > file.txt
+echo "linha adicional" >> file.txt
+
+# docker container run - Associando um Diretório do Host ao Container (Bind Mount)
+
+docker container run -it --rm --name alpine -v <path-completo-host>:/mnt/bind-mount alpine:3.17
+
+# docker network create/ls
+
+docker network ls
+docker network create minha-bridge
+
+# docker container run - Conectando Container à uma Network
+
+docker container run -dt --name bridge --entrypoint /bin/sh alpine:3.17
+docker container inspect bridge
+docker container run -dt --name host --entrypoint /bin/sh --network host alpine:3.17
+docker container inspect host
+docker container run -dt --name none --entrypoint /bin/sh --network none alpine:3.17
+docker container inspect none
+
+# docker network inspect/rm
+
+docker network inspect minha-bridge
+docker network minha-bridge
+
+# Analisando Network do Tipo Bridge
+
+docker image build -t alpine:network .
+docker network create -d bridge minha-bridge
+docker container run -it --rm --name net01 alpine:network
+docker container run -it --rm --name net02 alpine:network
+docker container inspect net01
+docker container inspect net02
+ifconfig
+docker container run -it --rm --name net03 --network minha-bridge alpine:network
+docker container run -it --rm --name net04 --network minha-bridge alpine:network
+ping <ip-container>
+
+# Analisando Network do Tipo Host
+
+docker container run -it --rm --name net-host --network host alpine:3.17
+ifconfig
+
+# Analisando Network do Tipo None
+
+docker container run -it --rm --name net-none --network none alpine:network
+docker container run -it --rm --name net-bridge alpine:network
+
+# docker network connect/disconnect
+
+docker container run -it --rm --name net01 alpine:network
+docker container run -it --rm --name net02 alpine:network
+docker network disconnect bridge net01
+docker network connect bridge net01docker network connect minha-bridge net01
+docker container inspect net01
+
+# Services no Docker Compose
+
+docker compose up -d
+docker compose ls
+docker compose down
+
+# Build no Service do dokcer Compose
+
+docker compose up -d
+docker compose down
+
+# Volumes no Docker Compose
+
+docker compose up -d
+docker compose down
+docker compose down --volumes
+
+# Network no Docker Compose
+
+docker compose up -d
+docker compose down
+
+# Criação Imagem Docker para usar na AWS e na Azure
+
+docker image build -t <registry>/nginx:aws-azure .
+docker image push <registry>/nginx:aws-azure
+
+# docker image/container/volume/network prune
+
+docker image prune -af
+docker container prune -f
+docker volume prune -f
+docker network prune -f
+
+# docker system prune
+
+docker system prune -af --volumes
