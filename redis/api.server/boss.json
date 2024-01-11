@@ -1,0 +1,11 @@
+{
+	"name": "serviceapi",
+	"description": "",
+	"version": "1.0.0",
+	"homepage": "",
+	"mainsrc": "./src",
+	"projects": [],
+	"dependencies": {
+		"https://github.com/carloshe/snowflake-generator": "^1.0.0"
+	}
+}

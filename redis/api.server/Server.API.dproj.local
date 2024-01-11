@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/01/11 08:23:58.000.435,C:\Users\w7x64\Documents\Embarcadero\Studio\Projects\Project27.dproj=E:\projetos\estudos\redis\api.server\Server.API.dproj</Transaction>
+    <Transaction>2024/01/11 08:33:01.741,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 08:52:05.769,E:\projetos\estudos\redis\api.server\src\contracts\Contract.Repository.Order.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 08:54:09.945,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 08:54:37.169,E:\projetos\estudos\redis\api.server\src\contracts\Contract.Entity.Order.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 08:57:23.205,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 08:58:00.886,E:\projetos\estudos\redis\api.server\src\enums\Enum.OrderStatus.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:03:31.259,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:03:54.133,E:\projetos\estudos\redis\api.server\src\contracts\Contract.Entity.Product.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:22:28.871,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:22:52.105,E:\projetos\estudos\redis\api.server\src\contracts\Contract.Service.Order.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:28:43.211,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:31:03.058,E:\projetos\estudos\redis\api.server\src\repository\Repository.Order.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:31:39.344,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:31:51.935,E:\projetos\estudos\redis\api.server\src\entities\Entity.Order.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:32:00.307,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:32:12.409,E:\projetos\estudos\redis\api.server\Entity.Product.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 09:32:20.256,E:\projetos\estudos\redis\api.server\Entity.Product.pas=</Transaction>
+    <Transaction>2024/01/11 09:32:40.955,=E:\projetos\estudos\redis\api.server\src\entities\Entity.Product.pas</Transaction>
+    <Transaction>2024/01/11 10:34:40.533,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 10:35:14.893,E:\projetos\estudos\redis\api.server\src\contracts\Contract.Entity.Base.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 10:36:55.589,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 10:37:34.123,E:\projetos\estudos\redis\api.server\src\entities\Entity.Base.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 11:16:05.326,=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+    <Transaction>2024/01/11 11:16:41.231,E:\projetos\estudos\redis\api.server\src\services\Service.Order.pas=E:\projetos\estudos\redis\api.server\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

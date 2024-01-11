@@ -1,0 +1,14 @@
+{
+	"hash": "d41d8cd98f00b204e9800998ecf8427e",
+	"updated": "2024-01-11T08:31:14.3671503-03:00",
+	"installedModules": {
+		"https://github.com/carloshe/snowflake-generator": {
+			"name": "snowflake-generator",
+			"version": "1.0.0",
+			"hash": "03d003f9c26fc08ea4dfb98054394be5",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		}
+	}
+}
