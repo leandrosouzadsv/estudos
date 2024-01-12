@@ -1,0 +1,46 @@
+{
+	"hash": "d41d8cd98f00b204e9800998ecf8427e",
+	"updated": "2023-09-30T10:30:03.362058-03:00",
+	"installedModules": {
+		"github.com/carloshe/pool-manager": {
+			"name": "pool-manager",
+			"version": "1.0.0",
+			"hash": "a093b26c85c6ef871d309f50851ba53b",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/carloshe/snowflake-generator": {
+			"name": "snowflake-generator",
+			"version": "1.0.0",
+			"hash": "03d003f9c26fc08ea4dfb98054394be5",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/danieleteti/delphiredisclient": {
+			"name": "delphiredisclient",
+			"version": "v2.2",
+			"hash": "d56fa90792fa7f255deac3872c2ef839",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/hashload/horse": {
+			"name": "horse",
+			"version": "3.1.5",
+			"hash": "3824f65f99e511ba73d3fdd2f6d16413",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/hashload/jhonson": {
+			"name": "jhonson",
+			"version": "1.1.8",
+			"hash": "62d5763101381ad8aeec10773544b1dc",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		}
+	}
+}

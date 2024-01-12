@@ -1,0 +1,59 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 609
+  ClientWidth = 513
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Button1: TButton
+    Position.X = 8.000000000000000000
+    Position.Y = 8.000000000000000000
+    Size.Width = 497.000000000000000000
+    Size.Height = 57.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Text = 'Finalizar pedido'
+  end
+  object TextStatusPedido: TText
+    Position.X = 8.000000000000000000
+    Position.Y = 304.000000000000000000
+    Size.Width = 497.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 20.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+  end
+  object AniIndicatorStatusPedido: TAniIndicator
+    Position.X = 232.000000000000000000
+    Position.Y = 246.000000000000000000
+  end
+  object EditOrderId: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 5
+    Position.X = 8.000000000000000000
+    Position.Y = 152.000000000000000000
+    Size.Width = 497.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Button2: TButton
+    Position.X = 8.000000000000000000
+    Position.Y = 181.000000000000000000
+    Size.Width = 497.000000000000000000
+    Size.Height = 57.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    Text = 'Ver status pedido'
+    OnClick = Button2Click
+  end
+  object NetHTTPClient: TNetHTTPClient
+    Asynchronous = True
+    UserAgent = 'Embarcadero URI Client/1.0'
+    Left = 416
+    Top = 16
+  end
+end

@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{D6A398B9-9FB3-4005-85C6-10A15B5E832B}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="api-pedidos\api_pedidos.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="client-pedidos\client_pedidos.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="api_pedidos">
+        <MSBuild Projects="api-pedidos\api_pedidos.dproj"/>
+    </Target>
+    <Target Name="api_pedidos:Clean">
+        <MSBuild Projects="api-pedidos\api_pedidos.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="api_pedidos:Make">
+        <MSBuild Projects="api-pedidos\api_pedidos.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="client_pedidos">
+        <MSBuild Projects="client-pedidos\client_pedidos.dproj"/>
+    </Target>
+    <Target Name="client_pedidos:Clean">
+        <MSBuild Projects="client-pedidos\client_pedidos.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="client_pedidos:Make">
+        <MSBuild Projects="client-pedidos\client_pedidos.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="api_pedidos;client_pedidos"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="api_pedidos:Clean;client_pedidos:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="api_pedidos:Make;client_pedidos:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
