@@ -1,0 +1,15 @@
+export const darkTheme = {
+  mode: 'dark' as const,
+  background: '#0F172A',
+  surface: '#111827',
+  primary: '#818CF8',
+  secondary: '#60A5FA',
+  text: '#F8FAFC',
+  muted: '#94A3B8',
+  border: '#334155',
+  success: '#34D399',
+  warning: '#FBBF24',
+  danger: '#F87171',
+  card: '#1E293B',
+  shadow: '#00000060',
+};

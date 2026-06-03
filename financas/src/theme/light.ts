@@ -1,0 +1,15 @@
+export const lightTheme = {
+  mode: 'light' as const,
+  background: '#F7F9FC',
+  surface: '#FFFFFF',
+  primary: '#4F46E5',
+  secondary: '#2563EB',
+  text: '#111827',
+  muted: '#6B7280',
+  border: '#E5E7EB',
+  success: '#10B981',
+  warning: '#F59E0B',
+  danger: '#EF4444',
+  card: '#FFFFFF',
+  shadow: '#0000001A',
+};
